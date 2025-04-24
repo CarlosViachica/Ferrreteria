@@ -13,6 +13,7 @@ import java.util.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 
 /**
  *
@@ -20,7 +21,8 @@ import java.util.List;
  */
 public class VentaDAO {
 
-    public void crearVenta(Venta venta) throws SQLException {
+    //Método de VentaDAO
+    public int crearVenta(Venta venta) throws SQLException {
         String sql = """
         INSERT INTO Ventas (
             id_cliente, 
@@ -28,14 +30,23 @@ public class VentaDAO {
             fecha_venta, 
             total_venta
         ) VALUES (?, ?, ?, ?)""";
+        int generatedId = -1;
 
-        try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+        try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, venta.getIdCliente());
             stmt.setInt(2, venta.getIdEmpleado());
             stmt.setTimestamp(3, new java.sql.Timestamp(venta.getFechaVenta().getTime()));
             stmt.setFloat(4, venta.getTotalVenta());
             stmt.executeUpdate();
+
+            // Obtener el ID generado
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    generatedId = rs.getInt(1);
+                }
+            }
         }
+        return generatedId;
     }
 
     public List<Venta> leerTodasVentas() throws SQLException {
