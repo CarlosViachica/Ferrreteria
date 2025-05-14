@@ -323,6 +323,16 @@ public class VistaEmpleado extends javax.swing.JPanel {
 
     private void accionBotonLimpiar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonLimpiar
         // TODO add your handling code here:
+        textPrimerNombre.setText("");
+        textSegundoNombre.setText("");
+        textPrimerApellido.setText("");
+        textSegundoApellido.setText("");
+        textCelular.setText("");
+        textBuscar.setText("");
+        idEmpleadoSeleccionado = null;
+        selectorFechaContratacion.setDate(new Date());
+        btnEliminar.setEnabled(true);
+        btnGuardar.setEnabled(true);
     }//GEN-LAST:event_accionBotonLimpiar
 
     private void accionBotonEliminar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonEliminar
@@ -367,7 +377,7 @@ public class VistaEmpleado extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             int filaSeleccionada = tablaEmpleados.getSelectedRow();
             if (filaSeleccionada != -1) {
-                int idEmpleadoSeleccionado = (int) tablaEmpleados.getValueAt(filaSeleccionada, 0);
+                idEmpleadoSeleccionado = (int) tablaEmpleados.getValueAt(filaSeleccionada, 0);
                 String primerNombre = (String) tablaEmpleados.getValueAt(filaSeleccionada, 1);
                 String segundoNombre = (String) tablaEmpleados.getValueAt(filaSeleccionada, 2);
                 String primerApellido = (String) tablaEmpleados.getValueAt(filaSeleccionada, 3);
