@@ -51,6 +51,16 @@ public class ClienteControlador {
         }
     }
 
+    public Cliente obtenerClientePorId(int idCliente) {
+        try {
+            return clienteDAO.obtenerClientePorId(idCliente);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    
     // Método para actualizar un cliente existente
     public void actualizarCliente(int idCliente, String primerNombre, String segundoNombre, String primerApellido,
             String segundoApellido, String celular, String direccion, String cedula) {

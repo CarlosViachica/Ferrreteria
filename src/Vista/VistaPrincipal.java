@@ -16,10 +16,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public VistaPrincipal() {
         initComponents();
         opciones.addTab("Categorias", new VistaCategorias());
-        opciones.addTab("Productos", new VistaProductos());
+        opciones.addTab("Productos", new VistaProducto());
         opciones.addTab("Empleados", new VistaEmpleado());
         opciones.addTab("Clientes", new VistaCliente());
         opciones.addTab("Productos", new VistaProducto());
+        opciones.addTab("Ventas", new VistaVenta());
     }
 
     /**
@@ -41,11 +42,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
+            .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
         );
 
         pack();
