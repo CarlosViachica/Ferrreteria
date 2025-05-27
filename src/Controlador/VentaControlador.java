@@ -94,16 +94,7 @@ public class VentaControlador {
     public static void main(String[] args) {
         VentaControlador controlador = new VentaControlador();
 
-        // Crear una lista de detalles de venta
-        List<DetalleVenta> detalles = new ArrayList<>();
-        DetalleVenta detalle1 = new DetalleVenta();
-        detalle1.setIdProducto(1);
-        detalle1.setCantidad(11);
-        detalle1.setPrecioUnitario(33.22f);
-        detalles.add(detalle1);
-
-        // Crear una venta con detalles
-        controlador.crearVenta(1, 1, new Date(), 555.44f, detalles);
+  
 
         // Leer todas las ventas
         List<Venta> ventas = controlador.obtenerTodasVentas();
@@ -116,11 +107,6 @@ public class VentaControlador {
             }
         }
 
-        // Actualizar una venta (suponiendo que ID 1 existe)
-        controlador.actualizarVenta(1, 5, 4, new Date(), 600.75f);
-
-        // Eliminar una venta
-        controlador.eliminarVenta(1);
 
     }
 }

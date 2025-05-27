@@ -56,6 +56,7 @@ public class VentaDAO {
         try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("id_venta"));
                 venta.setIdCliente(rs.getInt("id_cliente"));
                 venta.setIdEmpleado(rs.getInt("id_empleado"));
                 venta.setFechaVenta(rs.getTimestamp("fecha_venta"));
