@@ -4,10 +4,20 @@
  */
 package Vista;
 import Controlador.UsuarioControlador;
+import Modelo.Categoria;
 import Modelo.Usuario;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import java.awt.FileDialog;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -79,6 +89,7 @@ public class VistaUsuario extends javax.swing.JPanel {
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btnGenerarReporte = new javax.swing.JButton();
 
         jLabel1.setText("Usuario");
 
@@ -153,21 +164,22 @@ public class VistaUsuario extends javax.swing.JPanel {
             }
         });
 
+        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionbotonGenerarReporte(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(textUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44)
+                .addComponent(textUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(88, 88, 88)
@@ -176,24 +188,31 @@ public class VistaUsuario extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(206, 206, 206))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
+                        .addGap(74, 74, 74)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLimpiar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnActualizar)))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGap(176, 176, 176)
+                        .addComponent(btnActualizar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnGuardar)
+                            .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnGenerarReporte)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(btnLimpiar)
+                        .addGap(108, 108, 108))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,18 +225,18 @@ public class VistaUsuario extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnGuardar)
                         .addComponent(btnActualizar)
-                        .addComponent(btnGuardar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEliminar)
                         .addComponent(btnLimpiar)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarReporte))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -335,10 +354,79 @@ public class VistaUsuario extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_textBuscarKeyTyped
 
+    private void accionbotonGenerarReporte(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionbotonGenerarReporte
+        // TODO add your handling code here:
+        try{
+          FileDialog dialogoArchivo = new FileDialog((java.awt.Frame) null, "Guardar Reportes PDF", FileDialog.SAVE);
+          dialogoArchivo.setFile("ReportesUsuarios.pdf");
+          dialogoArchivo.setVisible(true);
+          
+          String ruta = dialogoArchivo.getDirectory();
+        String nombreArchivo = dialogoArchivo.getFile();
+        
+        if (ruta == null|| nombreArchivo == null){
+            JOptionPane.showMessageDialog(this, "Operacion cancelada.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String rutaCompleta = ruta + nombreArchivo;
+        
+        PdfWriter escritor = new PdfWriter(rutaCompleta);
+        PdfDocument pdf = new PdfDocument(escritor);
+        Document documento = new Document(pdf);
+        
+        documento.add(new Paragraph("Reportes de Usuarios")
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(20)
+                .setBold());
+        
+        documento.add(new Paragraph("Fecha: " + new java.util.Date().toString())
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(12));
+        
+        Table tabla = new Table(3);
+        tabla.setWidth(UnitValue.createPercentValue(100));
+        tabla.addHeaderCell("ID Usuario").setBold();
+        tabla.addHeaderCell("Usuario").setBold();
+        tabla.addHeaderCell("Contraseña").setBold();
+        
+        List<Usuario> listaUsuarios = 
+        usuarioControlador.obtenerTodosUsuarios();
+        if (listaUsuarios != null){
+            for (Usuario usuario : listaUsuarios){
+                tabla.addCell(String.valueOf(usuario.getIdUsuario()));
+                tabla.addCell(usuario.getUsuario());
+                tabla.addCell(usuario.getContrasena());
+            }
+        }
+        
+        
+        documento.add(tabla);
+        
+        documento.add(new Paragraph("Notas: Reportes generados automaticamente desde el sistema.") 
+                 .setFontSize(10)
+                 .setMarginTop(20));
+        
+        documento.close();
+        JOptionPane.showMessageDialog(
+                this,
+                "Reporte PDF generado con éxito en:" + rutaCompleta,
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        } catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+            this,
+            "Error al generar el PDF: " + e.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionbotonGenerarReporte
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;

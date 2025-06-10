@@ -4,8 +4,18 @@
  */
 package Vista;
 import Controlador.ClienteControlador;
+import Modelo.Categoria;
 import Modelo.Cliente;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import java.awt.FileDialog;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -98,6 +108,7 @@ public class VistaCliente extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCliente = new javax.swing.JTable();
+        btnGenerarReporte = new javax.swing.JButton();
 
         jLabel4.setText("Segundo apellido");
 
@@ -190,6 +201,13 @@ public class VistaCliente extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaCliente);
 
+        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonGenerarReporte(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,19 +219,16 @@ public class VistaCliente extends javax.swing.JPanel {
                         .addGap(92, 92, 92)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(268, 268, 268)
                         .addComponent(textCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -231,7 +246,9 @@ public class VistaCliente extends javax.swing.JPanel {
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(30, 30, 30)
@@ -244,15 +261,20 @@ public class VistaCliente extends javax.swing.JPanel {
                                     .addComponent(textDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel7)
-                                        .addGap(50, 50, 50)))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(50, 50, 50)))
+                                .addGap(62, 62, 62)
                                 .addComponent(jLabel8)
-                                .addGap(49, 49, 49)))))
+                                .addGap(49, 49, 49))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnGenerarReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -284,7 +306,8 @@ public class VistaCliente extends javax.swing.JPanel {
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -455,10 +478,89 @@ public class VistaCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textSegundoApellidoActionPerformed
 
+    private void accionBotonGenerarReporte(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonGenerarReporte
+        // TODO add your handling code here:
+        try{
+          FileDialog dialogoArchivo = new FileDialog((java.awt.Frame) null, "Guardar Reportes PDF", FileDialog.SAVE);
+          dialogoArchivo.setFile("ReportesClientes.pdf");
+          dialogoArchivo.setVisible(true);
+          
+          String ruta = dialogoArchivo.getDirectory();
+        String nombreArchivo = dialogoArchivo.getFile();
+        
+        if (ruta == null|| nombreArchivo == null){
+            JOptionPane.showMessageDialog(this, "Operacion cancelada.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String rutaCompleta = ruta + nombreArchivo;
+        
+        PdfWriter escritor = new PdfWriter(rutaCompleta);
+        PdfDocument pdf = new PdfDocument(escritor);
+        Document documento = new Document(pdf);
+        
+        documento.add(new Paragraph("Reportes de Clientes")
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(20)
+                .setBold());
+        
+        documento.add(new Paragraph("Fecha: " + new java.util.Date().toString())
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(12));
+        
+        Table tabla = new Table(8);
+        tabla.setWidth(UnitValue.createPercentValue(100));
+        tabla.addHeaderCell("ID Cliente").setBold();
+        tabla.addHeaderCell("Primer_Nombre").setBold();
+        tabla.addHeaderCell("Segundo_Nombre").setBold();
+        tabla.addHeaderCell("Primer_Apellido").setBold();
+        tabla.addHeaderCell("Segundo_Apellido").setBold();
+        tabla.addHeaderCell("Celular").setBold();
+        tabla.addHeaderCell("Direccion").setBold();
+        tabla.addHeaderCell("Cedula").setBold();
+        
+        List<Cliente> listaClientes = 
+        clienteControlador.obtenerTodosClientes();
+        if (listaClientes != null){
+            for (Cliente cliente : listaClientes){
+                tabla.addCell(String.valueOf(cliente.getIdCliente()));
+                tabla.addCell(cliente.getPrimerNombre());
+                tabla.addCell(cliente.getSegundoNombre());
+                tabla.addCell(cliente.getPrimerApellido());
+                tabla.addCell(cliente.getSegundoApellido());
+                tabla.addCell(cliente.getCelular());
+                tabla.addCell(cliente.getDireccion());
+                tabla.addCell(cliente.getCedula());
+            }
+        }
+        
+        
+        documento.add(tabla);
+        
+        documento.add(new Paragraph("Notas: Reportes generados automaticamente desde el sistema.") 
+                 .setFontSize(10)
+                 .setMarginTop(20));
+        
+        documento.close();
+        JOptionPane.showMessageDialog(
+                this,
+                "Reporte PDF generado con éxito en:" + rutaCompleta,
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        } catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+            this,
+            "Error al generar el PDF: " + e.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionBotonGenerarReporte
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;

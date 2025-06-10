@@ -50,6 +50,21 @@ public class UsuarioDAO {
         return usuarios;
     }
 
+    public Usuario validarUsuario(String usuario, String contrasena) throws SQLException {
+    String sql = "SELECT * FROM Usuarios WHERE usuario = ? AND contraseña = ?";
+    try (Connection c = ConexionDB.getConnection(); 
+         PreparedStatement stmt = c.prepareStatement(sql)) {
+        stmt.setString(1, usuario);
+        stmt.setString(2, contrasena);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new Usuario(rs.getInt("id_usuario"), rs.getString("usuario"), rs.getString("contraseña"));
+            }
+        }
+    }
+    return null; // Si no se encuentra coincidencia
+}
+    
     // Método para actualizar un usuario
     public void actualizarUsuario(Usuario usuario) throws SQLException {
         String sql = "UPDATE Usuarios SET usuario = ?, contraseña = ? WHERE id_usuario = ?";
